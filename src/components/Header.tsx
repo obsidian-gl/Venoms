@@ -4,7 +4,19 @@
  */
 
 import { useState } from 'react';
-import { Shield, RefreshCw, Menu, HelpCircle, ShieldAlert, BookOpen, Download } from 'lucide-react';
+import { 
+  Shield, 
+  RefreshCw, 
+  Menu, 
+  HelpCircle, 
+  ShieldAlert, 
+  BookOpen, 
+  Download,
+  Home,
+  AlertTriangle,
+  X
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderProps {
   onNewPostClick: () => void;
@@ -71,17 +83,6 @@ export default function Header({
             >
               Report
             </button>
-            <button
-              onClick={() => {
-                if ((window as any).triggerPwaInstall) {
-                  (window as any).triggerPwaInstall('main');
-                }
-              }}
-              className="hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-1 text-emerald-500/70"
-            >
-              <Download className="w-3 h-3" />
-              <span>Install</span>
-            </button>
           </div>
 
           {/* Refresh Button */}
@@ -101,6 +102,122 @@ export default function Header({
           >
             + Create Post
           </button>
+
+          {/* Unified Navigation Hub Menu Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowMenuDropdown(!showMenuDropdown)}
+              className="p-2 border border-zinc-850 hover:border-emerald-500/30 rounded bg-zinc-900/40 hover:bg-zinc-950 text-zinc-400 hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-1.5"
+              title="Navigation Hub"
+              id="menu-nav-button"
+            >
+              {showMenuDropdown ? <X className="w-4 h-4 text-rose-400" /> : <Menu className="w-4 h-4" />}
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider">Menu</span>
+            </button>
+            
+            <AnimatePresence>
+              {showMenuDropdown && (
+                <>
+                  {/* Click-outside backdrop */}
+                  <div className="fixed inset-0 z-40" onClick={() => setShowMenuDropdown(false)} />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: 5 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: 5 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 mt-2 w-64 rounded-xl bg-zinc-950 border border-zinc-900 shadow-2xl p-2 z-50 overflow-hidden"
+                  >
+                    <div className="px-3 py-2 border-b border-zinc-900/80 mb-1">
+                      <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest block">Navigation Hub</span>
+                    </div>
+
+                    {[
+                      {
+                        label: 'Home Grid',
+                        desc: 'Main Venom Feed',
+                        icon: Home,
+                        color: 'text-emerald-400 bg-emerald-500/5 border border-emerald-500/10',
+                        onClick: () => {
+                          onNavigate('/');
+                          setShowMenuDropdown(false);
+                        }
+                      },
+                      {
+                        label: 'Guidelines',
+                        desc: 'Community Rules & Conduct',
+                        icon: BookOpen,
+                        color: 'text-emerald-400 bg-emerald-500/5 border border-emerald-500/10',
+                        onClick: () => {
+                          onNavigate('/guidelines');
+                          setShowMenuDropdown(false);
+                        }
+                      },
+                      {
+                        label: 'Policies',
+                        desc: 'Privacy & Terms of Service',
+                        icon: HelpCircle,
+                        color: 'text-emerald-400 bg-emerald-500/5 border border-emerald-500/10',
+                        onClick: () => {
+                          onNavigate('/policies');
+                          setShowMenuDropdown(false);
+                        }
+                      },
+                      {
+                        label: 'File Report',
+                        desc: 'Report Guidelines Violation',
+                        icon: AlertTriangle,
+                        color: 'text-rose-400 bg-rose-500/5 border border-rose-500/10',
+                        onClick: () => {
+                          onNavigate('/report');
+                          setShowMenuDropdown(false);
+                        }
+                      },
+                      {
+                        label: 'Install App',
+                        desc: 'Download PWA Desktop/Mobile',
+                        icon: Download,
+                        color: 'text-sky-400 bg-sky-500/5 border border-sky-500/10',
+                        onClick: () => {
+                          if ((window as any).triggerPwaInstall) {
+                            (window as any).triggerPwaInstall('main');
+                          }
+                          setShowMenuDropdown(false);
+                        }
+                      },
+                      {
+                        label: 'Admin Console',
+                        desc: 'Security Control Board',
+                        icon: ShieldAlert,
+                        color: 'text-purple-400 bg-purple-500/5 border border-purple-500/10',
+                        onClick: () => {
+                          onNavigate('/admin');
+                          setShowMenuDropdown(false);
+                        }
+                      }
+                    ].map((item, idx) => (
+                      <button
+                        key={idx}
+                        onClick={item.onClick}
+                        className="w-full text-left flex items-start gap-3 p-2.5 rounded-lg hover:bg-zinc-900/50 transition-colors cursor-pointer group"
+                      >
+                        <div className={`p-1.5 rounded-md ${item.color} group-hover:scale-105 transition-transform shrink-0`}>
+                          <item.icon className="w-4 h-4" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-bold text-zinc-200 group-hover:text-emerald-400 transition-colors truncate">
+                            {item.label}
+                          </div>
+                          <div className="text-[9px] text-zinc-500 font-mono truncate leading-tight mt-0.5">
+                            {item.desc}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
+          </div>
 
         </div>
       </div>

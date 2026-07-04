@@ -32,6 +32,14 @@ interface NewVenomModalProps {
 
 export default function NewVenomModal({ onClose, onPostCreated }: NewVenomModalProps) {
   const [type, setType] = useState<'text' | 'image' | 'poll' | 'qa'>('text');
+
+  // Disable body scroll when modal is active to prevent background scrolling
+  React.useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('general');
   const [content, setContent] = useState('');
@@ -245,13 +253,16 @@ export default function NewVenomModal({ onClose, onPostCreated }: NewVenomModalP
   };
 
   return (
-    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 overflow-y-auto p-4 flex justify-center items-start md:items-center">
+      {/* Click outside backdrop overlay */}
+      <div className="fixed inset-0" onClick={onClose} />
+      
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
         transition={{ duration: 0.2 }}
-        className="bg-zinc-950 border border-zinc-900 rounded-lg max-w-lg w-full max-h-[90vh] overflow-y-auto text-zinc-300 shadow-2xl flex flex-col"
+        className="bg-zinc-950 border border-zinc-900 rounded-xl max-w-lg w-full text-zinc-300 shadow-2xl flex flex-col my-auto relative z-10"
       >
         {/* Header Title */}
         <div className="flex items-center justify-between border-b border-zinc-900/80 px-5 py-4 shrink-0">

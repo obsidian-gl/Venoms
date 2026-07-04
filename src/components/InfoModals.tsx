@@ -13,16 +13,30 @@ interface InfoModalsProps {
 }
 
 export default function InfoModals({ type, onClose }: InfoModalsProps) {
+  // Disable body scroll when modal is active to prevent background scrolling
+  React.useEffect(() => {
+    if (type) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [type]);
+
   if (!type) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 overflow-y-auto p-4 flex justify-center items-start md:items-center">
+      {/* Click outside backdrop overlay */}
+      <div className="fixed inset-0" onClick={onClose} />
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
         transition={{ duration: 0.2 }}
-        className="bg-zinc-950 border border-zinc-900 rounded-lg max-w-lg w-full text-zinc-300 shadow-2xl p-6 font-sans relative"
+        className="bg-zinc-950 border border-zinc-900 rounded-xl max-w-lg w-full text-zinc-300 shadow-2xl p-6 font-sans relative z-10 my-auto"
       >
         <button
           onClick={onClose}

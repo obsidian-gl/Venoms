@@ -15,8 +15,16 @@ interface QuarantineNoticeModalProps {
 }
 
 export default function QuarantineNoticeModal({ blockStatus, userIp, onClose }: QuarantineNoticeModalProps) {
+  // Disable body scroll when modal is active to prevent background scrolling
+  React.useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3">
+    <div className="fixed inset-0 z-50 overflow-y-auto p-3 flex justify-center items-start md:items-center">
       {/* Backdrop */}
       <motion.div 
         initial={{ opacity: 0 }}
@@ -32,7 +40,7 @@ export default function QuarantineNoticeModal({ blockStatus, userIp, onClose }: 
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
         transition={{ duration: 0.2, ease: 'easeOut' }}
-        className="relative w-full max-w-sm max-h-[90vh] overflow-y-auto bg-zinc-950 border border-rose-500/40 rounded-xl shadow-2xl z-10 p-4 space-y-3.5 text-zinc-300 font-mono scrollbar-thin scrollbar-thumb-zinc-800"
+        className="relative w-full max-w-sm bg-zinc-950 border border-rose-500/40 rounded-xl shadow-2xl z-10 p-4 space-y-3.5 text-zinc-300 font-mono my-auto scrollbar-thin scrollbar-thumb-zinc-800"
       >
         <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-rose-500 via-amber-500 to-rose-500" />
         

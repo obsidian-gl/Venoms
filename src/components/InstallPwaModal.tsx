@@ -38,6 +38,18 @@ export const InstallPwaModal: React.FC<InstallPwaModalProps> = ({
   const [activeTab, setActiveTab] = useState<TabType>('android');
   const [isPromptAvailable, setIsPromptAvailable] = useState(false);
 
+  // Disable body scroll when modal is active to prevent background scrolling
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   // Determine current user platform to set default tab
   useEffect(() => {
     if (!isOpen) return;
@@ -91,14 +103,14 @@ export const InstallPwaModal: React.FC<InstallPwaModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[9999] overflow-y-auto p-4 flex justify-center items-start md:items-center">
           {/* Backdrop Blur */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md"
             id="pwa-modal-backdrop"
           />
 
@@ -108,7 +120,7 @@ export const InstallPwaModal: React.FC<InstallPwaModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className="w-full max-w-lg bg-zinc-950 border border-zinc-900 rounded-xl overflow-hidden shadow-2xl relative z-10 font-mono text-zinc-300"
+            className="w-full max-w-lg bg-zinc-950 border border-zinc-900 rounded-xl overflow-hidden shadow-2xl relative z-10 font-mono text-zinc-300 my-auto"
             id="pwa-modal-container"
           >
             {/* Top Cyan Accent Line */}

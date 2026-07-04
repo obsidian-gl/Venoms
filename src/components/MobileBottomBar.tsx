@@ -9,8 +9,8 @@ import {
   HelpCircle, 
   Plus, 
   Flag, 
-  Download,
-  AlertTriangle
+  AlertTriangle,
+  Home
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -153,7 +153,37 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
         <div className="absolute w-12 h-12 rounded-full border border-emerald-500/10 pointer-events-none -translate-y-2 animate-pulse" />
       </div>
 
-      {/* 4. Report Tab */}
+      {/* 4. Home Tab */}
+      <button
+        onClick={() => handleNavigate('/')}
+        className="flex flex-col items-center justify-center flex-1 h-full relative cursor-pointer group"
+        id="nav-home"
+      >
+        <div className="flex flex-col items-center justify-center transition-transform duration-200 active:scale-90">
+          <Home 
+            className={`w-5 h-5 transition-colors duration-250 ${
+              isTabActive('/') 
+                ? 'text-emerald-400' 
+                : 'text-zinc-500 group-hover:text-zinc-300'
+            }`} 
+          />
+          <span className={`text-[8px] font-mono font-black mt-1 uppercase tracking-wider transition-colors duration-250 ${
+            isTabActive('/') 
+              ? 'text-emerald-400' 
+              : 'text-zinc-600 group-hover:text-zinc-400'
+          }`}>
+            Home
+          </span>
+        </div>
+        {isTabActive('/') && (
+          <motion.div 
+            layoutId="active-nav-indicator"
+            className="absolute bottom-1 w-1 h-1 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]"
+          />
+        )}
+      </button>
+
+      {/* 5. Report Tab */}
       <button
         onClick={() => handleNavigate('/report')}
         className="flex flex-col items-center justify-center flex-1 h-full relative cursor-pointer group"
@@ -181,22 +211,6 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
             className="absolute bottom-1 w-1 h-1 rounded-full bg-rose-400 shadow-[0_0_8px_#f43f5e]"
           />
         )}
-      </button>
-
-      {/* 5. Install App Tab */}
-      <button
-        onClick={handleInstallClick}
-        className="flex flex-col items-center justify-center flex-1 h-full relative cursor-pointer group"
-        id="nav-install"
-      >
-        <div className="flex flex-col items-center justify-center transition-transform duration-200 active:scale-90">
-          <Download 
-            className="w-5 h-5 text-zinc-500 group-hover:text-emerald-400 transition-colors duration-250" 
-          />
-          <span className="text-[8px] font-mono font-black mt-1 uppercase tracking-wider text-zinc-600 group-hover:text-zinc-400 transition-colors duration-250">
-            Install
-          </span>
-        </div>
       </button>
 
     </div>
