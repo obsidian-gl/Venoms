@@ -253,7 +253,7 @@ export default function NewVenomModal({ onClose, onPostCreated }: NewVenomModalP
   };
 
   return (
-    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 overflow-y-auto p-4 flex justify-center items-start md:items-center">
+    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 overflow-y-auto px-4 pt-4 pb-24 md:pb-4 flex justify-center items-start md:items-center">
       {/* Click outside backdrop overlay */}
       <div className="fixed inset-0" onClick={onClose} />
       

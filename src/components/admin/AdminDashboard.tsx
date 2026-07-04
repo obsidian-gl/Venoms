@@ -111,11 +111,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ posts, onNavigat
     <div className="min-h-screen bg-[#030303] text-zinc-300 font-mono flex flex-col selection:bg-emerald-500/30 selection:text-emerald-100">
       
       {/* GLOWING HEADER BACKGROUND */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[1px] bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[1px] bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent z-10" />
 
       {/* ADMIN TITLE / CONSOLE STATUS BAR */}
       <header className="border-b border-zinc-900 bg-black/60 backdrop-blur-md sticky top-0 z-40 px-4 py-3">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row gap-3 items-center justify-between">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-3 items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 bg-emerald-500/10 border border-emerald-500/30 rounded flex items-center justify-center">
               <ShieldAlert className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
@@ -235,7 +235,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ posts, onNavigat
             key="dashboard"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex-1 max-w-6xl w-full mx-auto px-4 py-6 space-y-6 relative z-10"
+            className="flex-1 max-w-5xl w-full mx-auto px-4 py-6 pb-28 md:pb-12 space-y-6 relative z-10"
           >
             {/* STATS & SVG GRAPHS SECTION */}
             <AdminTelemetry posts={posts} />

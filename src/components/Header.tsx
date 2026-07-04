@@ -63,28 +63,6 @@ export default function Header({
         {/* Action Controls - Menu beside Refresh, beside Create Post */}
         <div className="flex items-center gap-2">
           
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-4 text-[10px] font-mono font-bold uppercase text-zinc-500 mr-3">
-            <button
-              onClick={() => onNavigate('/guidelines')}
-              className="hover:text-emerald-400 transition-colors cursor-pointer"
-            >
-              Guidelines
-            </button>
-            <button
-              onClick={() => onNavigate('/policies')}
-              className="hover:text-emerald-400 transition-colors cursor-pointer"
-            >
-              Policies
-            </button>
-            <button
-              onClick={() => onNavigate('/report')}
-              className="hover:text-rose-400 transition-colors cursor-pointer text-rose-500/70"
-            >
-              Report
-            </button>
-          </div>
-
           {/* Refresh Button */}
           <button
             onClick={onRefresh}
@@ -133,16 +111,6 @@ export default function Header({
 
                     {[
                       {
-                        label: 'Home Grid',
-                        desc: 'Main Venom Feed',
-                        icon: Home,
-                        color: 'text-emerald-400 bg-emerald-500/5 border border-emerald-500/10',
-                        onClick: () => {
-                          onNavigate('/');
-                          setShowMenuDropdown(false);
-                        }
-                      },
-                      {
                         label: 'Guidelines',
                         desc: 'Community Rules & Conduct',
                         icon: BookOpen,
@@ -181,16 +149,6 @@ export default function Header({
                           if ((window as any).triggerPwaInstall) {
                             (window as any).triggerPwaInstall('main');
                           }
-                          setShowMenuDropdown(false);
-                        }
-                      },
-                      {
-                        label: 'Admin Console',
-                        desc: 'Security Control Board',
-                        icon: ShieldAlert,
-                        color: 'text-purple-400 bg-purple-500/5 border border-purple-500/10',
-                        onClick: () => {
-                          onNavigate('/admin');
                           setShowMenuDropdown(false);
                         }
                       }
