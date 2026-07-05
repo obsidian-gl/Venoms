@@ -149,7 +149,11 @@ export async function checkIpBlockStatus(ip: string, imei?: string): Promise<Blo
       };
     }
   } catch (error) {
-    console.error('Error checking block status:', error);
+    if (error instanceof Error && (error.message.includes('offline') || error.message.includes('Could not reach') || error.message.includes('Failed to get document'))) {
+      console.warn('Block status check bypassed (client is offline):', error.message);
+    } else {
+      console.error('Error checking block status:', error);
+    }
     return { isBlocked: false };
   }
 }

@@ -37,7 +37,7 @@ export async function testConnection() {
     await getDocFromServer(doc(db, 'test', 'connection'));
   } catch (error) {
     if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.error("Please check your Firebase configuration or network status.");
+      console.warn("Please check your Firebase configuration or network status (client is currently offline).");
     }
   }
 }
@@ -75,9 +75,11 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
     errStr.includes('Disconnecting idle stream') ||
     errStr.includes('Timed out waiting for new targets') ||
     errStr.includes('CANCELLED') ||
+    errStr.includes('offline') ||
+    errStr.includes('Could not reach') ||
     (error && typeof error === 'object' && 'code' in error && (error as any).code === 'cancelled')
   ) {
-    console.warn('Firestore stream idle disconnect (safe auto-reconnect):', errStr);
+    console.warn('Firestore stream idle disconnect or offline warning:', errStr);
     return;
   }
 

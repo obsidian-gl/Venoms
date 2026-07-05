@@ -55,7 +55,7 @@ export default function Header({
               VENOM
             </h1>
             <p className="text-[10px] text-zinc-500 font-mono tracking-wider uppercase select-none">
-              Official Hub
+              By Obsidian
             </p>
           </div>
         </div>

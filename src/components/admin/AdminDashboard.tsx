@@ -116,36 +116,27 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ posts, onNavigat
       {/* ADMIN TITLE / CONSOLE STATUS BAR */}
       <header className="border-b border-zinc-900 bg-black/60 backdrop-blur-md sticky top-0 z-40 px-4 py-3">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-3 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 bg-emerald-500/10 border border-emerald-500/30 rounded flex items-center justify-center">
-              <ShieldAlert className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-            </div>
+          <div 
+            className="flex items-center gap-3 cursor-pointer select-none transition-transform active:scale-95"
+            onClick={onNavigateHome}
+          >
+            <img 
+              src="https://i.ibb.co/RpqhT7QZ/14893-removebg-preview.png" 
+              alt="Venom Logo" 
+              className="w-11 h-11 object-contain select-none drop-shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-transform duration-500 hover:scale-110 active:scale-95 cursor-pointer"
+              referrerPolicy="no-referrer"
+            />
             <div>
-              <span className="text-[10px] uppercase font-black text-zinc-100 tracking-widest flex items-center gap-1.5 leading-none flex-wrap">
-                <span>Venom Comm-Center</span>
-                <span className="text-zinc-600">/</span>
-                <span className="text-emerald-400 font-bold bg-emerald-950/20 px-1 py-0.5 rounded text-[8px]">
-                  {isAuthenticated ? 'LEVEL 4 DECRYPTION CLEARANCE' : 'SECURE GATEWAY'}
-                </span>
-              </span>
-              <p className="text-[8px] text-zinc-600 uppercase tracking-tight mt-0.5 font-sans">
-                {isAuthenticated ? 'System status: operational & stabilized' : 'Awaiting authorized node credentials'}
+              <h1 className="text-lg font-black tracking-widest text-emerald-400 select-none leading-tight">
+                VENOM
+              </h1>
+              <p className="text-[10px] text-zinc-500 font-mono tracking-wider uppercase select-none leading-none mt-0.5">
+                By Obsidian
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap justify-center">
-            <button
-              onClick={() => {
-                if ((window as any).triggerPwaInstall) {
-                  (window as any).triggerPwaInstall('admin');
-                }
-              }}
-              className="px-3 py-1 bg-emerald-950/20 hover:bg-emerald-950/40 border border-emerald-500/20 text-emerald-400 hover:text-emerald-300 text-[10px] font-bold rounded transition-colors uppercase tracking-wider cursor-pointer flex items-center gap-1"
-            >
-              <Download className="w-3 h-3" />
-              <span>Download Admin App</span>
-            </button>
             <button
               onClick={onNavigateHome}
               className="px-3 py-1 bg-zinc-950 hover:bg-zinc-900 border border-zinc-900 text-zinc-400 hover:text-zinc-200 text-[10px] font-bold rounded transition-colors uppercase tracking-wider cursor-pointer"
@@ -235,7 +226,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ posts, onNavigat
             key="dashboard"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex-1 max-w-5xl w-full mx-auto px-4 py-6 pb-28 md:pb-12 space-y-6 relative z-10"
+            className="flex-1 max-w-6xl w-full mx-auto px-4 py-6 pb-28 md:pb-12 space-y-6 relative z-10"
           >
             {/* STATS & SVG GRAPHS SECTION */}
             <AdminTelemetry posts={posts} />

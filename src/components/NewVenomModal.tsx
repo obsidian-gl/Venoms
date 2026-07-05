@@ -522,6 +522,9 @@ export default function NewVenomModal({ onClose, onPostCreated }: NewVenomModalP
             </button>
           </div>
 
+          {/* Spacer for mobile devices to prevent floating bottom-bar overlap */}
+          <div className="h-24 block md:hidden pointer-events-none" />
+
         </form>
       </motion.div>
     </div>

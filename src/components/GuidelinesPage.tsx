@@ -31,31 +31,20 @@ export default function GuidelinesPage({ onBackToHome }: GuidelinesPageProps) {
             <img 
               src="https://i.ibb.co/RpqhT7QZ/14893-removebg-preview.png" 
               alt="Venom Logo" 
-              className="w-8 h-8 object-contain select-none drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]"
+              className="w-11 h-11 object-contain select-none drop-shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-transform duration-500 hover:scale-110 active:scale-95 cursor-pointer"
+              referrerPolicy="no-referrer"
             />
             <div>
-              <span className="text-xs uppercase font-black text-zinc-100 tracking-widest flex items-center gap-1 leading-none">
-                <span>Venom Portal</span>
-                <span className="text-zinc-600">/</span>
-                <span className="text-emerald-400 font-bold bg-emerald-950/20 px-1 py-0.5 rounded text-[8px]">
-                  GUIDELINES & DOCUMENTATION
-                </span>
-              </span>
+              <h1 className="text-lg font-black tracking-widest text-emerald-400 select-none leading-tight">
+                VENOM
+              </h1>
+              <p className="text-[10px] text-zinc-500 font-mono tracking-wider uppercase select-none leading-none mt-0.5">
+                By Obsidian
+              </p>
             </div>
           </div>
           
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => {
-                if ((window as any).triggerPwaInstall) {
-                  (window as any).triggerPwaInstall('main');
-                }
-              }}
-              className="px-3 py-1 bg-emerald-950/20 hover:bg-emerald-950/40 border border-emerald-500/20 text-emerald-400 hover:text-emerald-300 text-[10px] font-bold rounded transition-colors uppercase tracking-wider cursor-pointer flex items-center gap-1"
-            >
-              <Download className="w-3 h-3" />
-              <span>Download App</span>
-            </button>
             <button
               onClick={() => {
                 if (onBackToHome) {
