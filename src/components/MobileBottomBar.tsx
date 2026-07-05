@@ -101,12 +101,6 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
             Rules
           </span>
         </div>
-        {isTabActive('/guidelines') && (
-          <motion.div 
-            layoutId="active-nav-indicator"
-            className="absolute bottom-1 w-1 h-1 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]"
-          />
-        )}
       </button>
 
       {/* 2. Policies Tab */}
@@ -131,12 +125,6 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
             Policy
           </span>
         </div>
-        {isTabActive('/policies') && (
-          <motion.div 
-            layoutId="active-nav-indicator"
-            className="absolute bottom-1 w-1 h-1 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]"
-          />
-        )}
       </button>
 
       {/* 3. Center Create Post Button (Elevated Instagram-Style) */}
@@ -175,12 +163,6 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
             Home
           </span>
         </div>
-        {isTabActive('/') && (
-          <motion.div 
-            layoutId="active-nav-indicator"
-            className="absolute bottom-1 w-1 h-1 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]"
-          />
-        )}
       </button>
 
       {/* 5. Report Tab */}
@@ -205,12 +187,6 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
             Report
           </span>
         </div>
-        {isTabActive('/report') && (
-          <motion.div 
-            layoutId="active-nav-indicator"
-            className="absolute bottom-1 w-1 h-1 rounded-full bg-rose-400 shadow-[0_0_8px_#f43f5e]"
-          />
-        )}
       </button>
 
     </div>

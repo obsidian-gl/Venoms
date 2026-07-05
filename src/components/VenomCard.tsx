@@ -699,63 +699,32 @@ Use it now: https://myvenom.vercel.app`;
       }`}
     >
       
-      {/* Top Meta Info Header (Instagram / Facebook Inspired Avatar Style) */}
-      <div className={`px-4 pt-4 pb-3 flex items-center justify-between border-b border-zinc-900/40 text-zinc-500 gap-2 flex-wrap ${compact ? 'px-3 pt-3 pb-2' : ''}`}>
-        <div className="flex items-center gap-3">
-          {/* Circular Gradient Avatar */}
-          <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${getDeterministicColors(post.id || post.encryptedHash)} border flex items-center justify-center font-bold text-xs shadow-inner shrink-0 relative ${compact ? 'w-8 h-8 text-[11px]' : ''}`}>
-            {post.category ? post.category.substring(0, 2).toUpperCase() : 'VN'}
-            {/* Online Indicator Dot */}
-            <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-500 border border-zinc-950" />
-          </div>
+      {/* Top Meta Info Header */}
+      <div className={`px-4 py-3 flex items-center justify-between border-b border-zinc-900/40 text-[10px] text-zinc-500 font-mono gap-3 flex-wrap ${compact ? 'px-2.5 py-2 text-[9px]' : ''}`}>
+        
+        {/* Left Side: All details, buttons, and identifiers aligned together */}
+        <div className="flex items-center gap-2 flex-wrap min-w-0">
+          {/* 1. Post Type Badge (replacing the old category badge) */}
+          <span className={`text-emerald-400 font-bold bg-emerald-950/30 border border-emerald-500/20 px-2 py-0.5 rounded uppercase text-[9px] tracking-wider flex items-center gap-1 shrink-0 ${compact ? 'px-1.5 py-0 text-[8px]' : ''}`}>
+            {post.type === 'text' && <Hash className="w-2.5 h-2.5 text-emerald-400" />}
+            {post.type === 'image' && <Eye className="w-2.5 h-2.5 text-emerald-400" />}
+            {post.type === 'poll' && <BarChart2 className="w-2.5 h-2.5 text-emerald-400" />}
+            {post.type === 'qa' && <HelpCircle className="w-2.5 h-2.5 text-emerald-400" />}
+            <span>{post.type === 'qa' ? 'Q&A' : post.type.toUpperCase()}</span>
+          </span>
 
-          {/* User Details */}
-          <div className="flex flex-col text-left">
-            <div className="flex items-center gap-1.5 flex-wrap leading-none">
-              <span className="font-semibold text-xs sm:text-sm text-zinc-100 hover:text-emerald-400 transition-colors cursor-pointer">
-                Agent #{post.encryptedHash.substring(0, 5).toUpperCase()}
-              </span>
-              {highlighted && (
-                <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider animate-pulse leading-none">
-                  Target
-                </span>
-              )}
-              <span className="text-zinc-700 text-xs hidden xs:inline">•</span>
-              <span className="text-[10px] text-zinc-500 font-medium font-mono shrink-0">
-                {formatTimeAgo(post.createdAt)}
-              </span>
-            </div>
-            
-            <div className="flex items-center gap-1.5 text-[10px] text-zinc-500 mt-1 leading-none">
-              <span className="text-emerald-500/80 font-bold hover:underline cursor-pointer">
-                #{post.category}
-              </span>
+          {highlighted && (
+            <>
               <span className="text-zinc-800">•</span>
-              <span className="uppercase text-[8px] tracking-wider font-semibold text-zinc-400 bg-zinc-900 border border-zinc-800/60 px-1 py-0.5 rounded flex items-center gap-1 leading-none">
-                {post.type === 'text' && <Hash className="w-2 h-2 text-zinc-600" />}
-                {post.type === 'image' && <Eye className="w-2 h-2 text-zinc-600" />}
-                {post.type === 'poll' && <BarChart2 className="w-2 h-2 text-zinc-600" />}
-                {post.type === 'qa' && <HelpCircle className="w-2 h-2 text-zinc-600" />}
-                <span>{post.type}</span>
+              <span className="bg-emerald-500 text-zinc-950 px-1.5 py-0.5 rounded uppercase text-[8px] font-black tracking-wider animate-pulse flex items-center gap-1">
+                Target
               </span>
-            </div>
-          </div>
-        </div>
+            </>
+          )}
 
-        {/* Right Action Icons (Flag, Verification ID) */}
-        <div className="flex items-center gap-2">
-          {/* Post ID cryptographic tag */}
-          <button 
-            onClick={handleCopyHash}
-            className="hover:text-emerald-400 cursor-pointer text-zinc-600 transition-colors flex items-center gap-1 group font-mono text-[9px] shrink-0"
-            title="Click to copy post verification tag"
-          >
-            <Shield className="w-3.5 h-3.5 text-emerald-500/15 group-hover:text-emerald-400/30" />
-            <span className="hidden sm:inline-block">{isCopingHash ? 'COPIED' : 'ID: ' + post.encryptedHash.substring(0, 8).toUpperCase()}</span>
-            <span className="sm:hidden">{isCopingHash ? 'COPIED' : post.encryptedHash.substring(0, 4).toUpperCase()}</span>
-          </button>
+          <span className="text-zinc-800">•</span>
 
-          {/* Report flag button */}
+          {/* 2. Report Button */}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -764,12 +733,37 @@ Use it now: https://myvenom.vercel.app`;
                 window.dispatchEvent(new PopStateEvent('popstate'));
               });
             }}
-            className="p-1.5 text-zinc-600 hover:text-rose-400 hover:bg-rose-950/10 border border-transparent hover:border-rose-500/10 rounded transition-all cursor-pointer shrink-0"
-            title="Report this Venom"
+            className={`flex items-center gap-1 text-rose-500 hover:text-rose-400 font-bold bg-rose-950/10 hover:bg-rose-950/25 border border-rose-500/20 hover:border-rose-500/40 px-2 py-0.5 rounded uppercase text-[8px] tracking-wider transition-all cursor-pointer shrink-0 ${compact ? 'px-1.5 py-0 text-[7.5px]' : ''}`}
+            title="Copy ID & Report this Venom"
           >
-            <Flag className="w-3.5 h-3.5" />
+            <Flag className="w-2.5 h-2.5 text-rose-500" />
+            <span>Report</span>
+          </button>
+
+          <span className="text-zinc-800">•</span>
+
+          {/* 3. Post ID cryptographic tag */}
+          <button 
+            onClick={handleCopyHash}
+            className="hover:text-emerald-400 cursor-pointer text-zinc-600 transition-colors flex items-center gap-1 group font-mono text-[9px] shrink-0"
+            title="Click to copy post verification tag"
+          >
+            <Shield className="w-3 h-3 text-emerald-500/15 group-hover:text-emerald-400/50" />
+            <span>{isCopingHash ? 'COPIED' : 'ID: ' + post.encryptedHash.substring(0, 8).toUpperCase()}</span>
+          </button>
+
+          <span className="text-zinc-800">•</span>
+
+          {/* 4. Share Button (Moved next to Post ID) */}
+          <button
+            onClick={handleShare}
+            className="p-1 hover:bg-zinc-900/60 text-zinc-500 hover:text-emerald-400 rounded transition-all cursor-pointer relative shrink-0"
+            title="Share Venom"
+          >
+            <Share2 className="w-3.5 h-3.5" />
           </button>
         </div>
+
       </div>
 
       {/* Main content pane */}
@@ -1073,40 +1067,37 @@ Use it now: https://myvenom.vercel.app`;
           </button>
         </div>
 
-        {/* Tablet / PC: Rounded reaction bar with all 6 emojis in a row */}
-        <div className="hidden md:flex items-center gap-1 bg-zinc-900/40 border border-zinc-850/60 rounded-full p-0.5 px-1.5 shadow-inner">
-          {REACTIONS.map((r) => {
-            const count = post.reactions?.[r.key] || 0;
-            const isUserReacted = activeReaction === r.key;
-            return (
-              <button
-                key={r.key}
-                onClick={() => handleReact(r.key)}
-                className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full transition-all duration-200 text-[11px] cursor-pointer group hover:scale-105 active:scale-95 ${
-                  isUserReacted
-                    ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-bold'
-                    : 'bg-transparent border border-transparent text-zinc-500 hover:text-zinc-300'
-                }`}
-                title={r.label}
-              >
-                <span className={`text-sm transition-transform duration-200 ${isUserReacted ? 'scale-110' : 'group-hover:scale-120'}`}>
-                  {r.emoji}
-                </span>
-                {count > 0 && <span className="font-mono text-[9px] font-medium">{count}</span>}
-              </button>
-            );
-          })}
-        </div>
+        {/* Right Side: Reaction Bar & Post Timeline */}
+        <div className="flex items-center gap-2">
+          {/* Tablet / PC: Rounded reaction bar with all 6 emojis in a row */}
+          <div className="hidden md:flex items-center gap-1 bg-zinc-900/40 border border-zinc-850/60 rounded-full p-0.5 px-1.5 shadow-inner">
+            {REACTIONS.map((r) => {
+              const count = post.reactions?.[r.key] || 0;
+              const isUserReacted = activeReaction === r.key;
+              return (
+                <button
+                  key={r.key}
+                  onClick={() => handleReact(r.key)}
+                  className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full transition-all duration-200 text-[11px] cursor-pointer group hover:scale-105 active:scale-95 ${
+                    isUserReacted
+                      ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-bold'
+                      : 'bg-transparent border border-transparent text-zinc-500 hover:text-zinc-300'
+                  }`}
+                  title={r.label}
+                >
+                  <span className={`text-sm transition-transform duration-200 ${isUserReacted ? 'scale-110' : 'group-hover:scale-120'}`}>
+                    {r.emoji}
+                  </span>
+                  {count > 0 && <span className="font-mono text-[9px] font-medium">{count}</span>}
+                </button>
+              );
+            })}
+          </div>
 
-        {/* Right Side: Share Action */}
-        <div className="flex items-center">
-          <button
-            onClick={handleShare}
-            className="p-1.5 hover:bg-zinc-900/80 text-zinc-500 hover:text-emerald-400 rounded transition-all cursor-pointer relative"
-            title="Share Venom"
-          >
-            <Share2 className="w-3.5 h-3.5" />
-          </button>
+          {/* Post Timeline (Wider, adjustable, perfectly spaced, and does not overlap) */}
+          <span className={`text-[10px] text-zinc-400 font-bold bg-zinc-900 border border-zinc-850 px-3.5 py-1 rounded tracking-wider uppercase font-mono shadow-sm min-w-[90px] text-center whitespace-nowrap hover:text-emerald-400 transition-colors`}>
+            {formatTimeAgo(post.createdAt)}
+          </span>
         </div>
       </div>
 
