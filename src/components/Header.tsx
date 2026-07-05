@@ -82,7 +82,7 @@ export default function Header({
           </button>
 
           {/* Unified Navigation Hub Menu Dropdown */}
-          <div className="relative">
+          <div className="relative hidden md:block">
             <button
               onClick={() => setShowMenuDropdown(!showMenuDropdown)}
               className="p-2 border border-zinc-850 hover:border-emerald-500/30 rounded bg-zinc-900/40 hover:bg-zinc-950 text-zinc-400 hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-1.5"
